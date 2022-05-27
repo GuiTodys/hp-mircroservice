@@ -10,6 +10,7 @@ import com.microservice.hpmicroservice.payloads.AlunoResponseWithHouse;
 import com.microservice.hpmicroservice.services.aluno.CadastroAluno;
 import com.microservice.hpmicroservice.services.aluno.ConsultarAluno;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,6 +31,7 @@ public class AlunoController {
     }
 
     @GetMapping("/{alunoId}")
+    @Cacheable(cacheNames = "info", key = "#alunoId")
     public AlunoResponseWithHouse getAlunoInformation(
             @PathVariable Long alunoId
     ) {
